@@ -78,8 +78,11 @@ generate_run_sh () {
 	#CREATE JAR-COMMANDS
 	local JARCOM="java -jar ../plantuml.jar"
 	while IFS= read -r FILE; do
-		echo "$JARCOM $SRC_FOLDER$FILE" >> "$RUN_FILEPATH"
+		echo "$JARCOM $SRC_FOLDER$FILE &" >> "$RUN_FILEPATH"
 	done <<< "$SRC_FILES"
+
+	#WAIT FOR PROCESSES
+	echo "wait" >> "$RUN_FILEPATH"
 
 	#CREATE MV-COMMANDS
 	echo "mv $SRC_FOLDER*.png $PNG_FOLDER" >> "$RUN_FILEPATH"
